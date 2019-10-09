@@ -1,36 +1,26 @@
-/*
- * Copyright (C) 2018 Inria
- *
- * This file is subject to the terms and conditions of the GNU Lesser
- * General Public License v2.1. See the file LICENSE in the top level
- * directory for more details.
- */
-
 #include <stdio.h>
 #include <string.h>
 
 #include "xtimer.h"
 #include "thread.h"
 
-#include "board.h"
+#include "lpsxxx.h"
+#include "lpsxxx_params.h"
 
-#include "hts221.h"
-#include "hts221_params.h"
+#include "lsm303dlhc.h"
+#include "lsm303dlhc_params.h"
 
-#include "lsm6dsl.h"
-#include "lsm6dsl_params.h"
+static char stack_lpsxxx[THREAD_STACKSIZE_MAIN];
+static char stack_lsm303dlhc[THREAD_STACKSIZE_MAIN];
 
-static char stack1[THREAD_STACKSIZE_MAIN];
-static char stack2[THREAD_STACKSIZE_MAIN];
-
-static void *thread1_handler(void *arg)
+static void *lpsxxx_handler(void *arg)
 {
     (void) arg;
 
     return NULL;
 }
 
-static void *thread2_handler(void *arg)
+static void *lsm303dlhc_handler(void *arg)
 {
     (void) arg;
 
@@ -40,19 +30,21 @@ static void *thread2_handler(void *arg)
 
 int main(void)
 {
-    puts("RTC alarm RIOT application");
+    puts("RIOT multi drivers application");
 
-    thread_create(stack1, sizeof(stack1),
+    /* Initialize drivers here  */
+
+    thread_create(stack_lpsxxx, sizeof(stack_lpsxxx),
                   THREAD_PRIORITY_MAIN - 1,
                   0,
-                  thread1_handler,
-                  NULL, "thread1");
+                  lpsxxx_handler,
+                  NULL, "lps331ap");
     
-    thread_create(stack2, sizeof(stack2),
+    thread_create(stack_lsm303dlhc, sizeof(stack_lsm303dlhc),
                   THREAD_PRIORITY_MAIN - 1,
                   0,
-                  thread2_handler,
-                  NULL, "thread2");
+                  lsm303dlhc_handler,
+                  NULL, "lsm303ldhc");
 
     return 0;
 }

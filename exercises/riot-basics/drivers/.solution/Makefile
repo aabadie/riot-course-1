@@ -1,10 +1,10 @@
 APPLICATION=drivers-application
 
-BOARD ?= b-l072z-lrwan1
+BOARD ?= iotlab-m3 
 
 USEMODULE += xtimer
-USEMODULE += hts221
-USEMODULE += lsm6dsl
+USEMODULE += lps331ap 
+USEMODULE += lsm303dlhc
 
 DEVELHELP ?= 1
 

@@ -1,6 +1,6 @@
 APPLICATION=drivers-application
 
-BOARD ?= b-l072z-lrwan1
+BOARD ?= iotlab-m3 
 
 USEMODULE += xtimer
 
