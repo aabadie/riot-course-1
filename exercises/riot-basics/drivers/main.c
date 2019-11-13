@@ -13,9 +13,13 @@
 static char stack_lpsxxx[THREAD_STACKSIZE_MAIN];
 static char stack_lsm303dlhc[THREAD_STACKSIZE_MAIN];
 
+/* Declare device descriptors of drivers here */
+
 static void *lpsxxx_handler(void *arg)
 {
     (void) arg;
+
+    /* Loop for reading and displaying temperature and pressure sensor values */
 
     return NULL;
 }
@@ -23,6 +27,8 @@ static void *lpsxxx_handler(void *arg)
 static void *lsm303dlhc_handler(void *arg)
 {
     (void) arg;
+
+    /* Loop for reading and displaying accelerometer and magnetometer values */
 
     return NULL;
 }
